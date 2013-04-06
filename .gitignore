@@ -1,0 +1,12 @@
+CHANGELOG
+LICENSE
+*.bat
+*.sh
+*.txt
+/*/
+
+!/src/
+/src/minecraft/*
+
+!/src/minecraft/samrg472/
+!/resources
