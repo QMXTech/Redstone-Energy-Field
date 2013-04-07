@@ -3,10 +3,5 @@
 
 Creates a live redstone energy field for mass powering equipment. Features multiple tiers of energy fields.
 
-Latest builds: http://ci.directmyfile.com/<br>
+> Latest builds: http://ci.directmyfile.com/<br>
 Minecraft Forum Post: http://bit.ly/Y5mRan
-
-Licence
-======
-
-This mod, along with all other CodeLiners projects, are licenced under the BSD Licence. This licence is located at LICENCE.md
