@@ -1,10 +1,7 @@
-CHANGELOG
-LICENSE
-*.bat
-*.sh
-*.txt
+*
 /*/
 
+!README.md
 !/src/
 /src/minecraft/*
 
