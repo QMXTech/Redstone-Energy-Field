@@ -31,7 +31,7 @@ public class RedstoneEnergyField {
     @SidedProxy(clientSide="samrg472.ref.proxies.ClientProxy", serverSide="samrg472.ref.proxies.CommonProxy")
     public static CommonProxy proxy;
     
-    @Instance("REF")
+    @Instance(RedstoneEnergyField.MOD_ID)
     public static RedstoneEnergyField instance;
     
     public static File configDir;
