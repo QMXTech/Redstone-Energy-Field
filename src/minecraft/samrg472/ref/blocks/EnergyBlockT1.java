@@ -14,7 +14,6 @@ public class EnergyBlockT1 extends BaseEnergyBlock {
 
     public EnergyBlockT1(int id, Material material) {
         super(id, material, Tier.ONE);
-        setUnlocalizedName("rsEnergyBlockT1");
     }
     
     @Override

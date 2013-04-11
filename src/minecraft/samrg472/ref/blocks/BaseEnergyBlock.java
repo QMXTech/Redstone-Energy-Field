@@ -21,13 +21,23 @@ public abstract class BaseEnergyBlock extends Block {
     private Tier tier;
 
     public BaseEnergyBlock(int id, Material material, Tier tier) {
+        this(id, material, tier, tier.unlocalizedName);
+    }
+
+    public BaseEnergyBlock(int id, Material material, String unlocalizedName) {
+        this(id, material, Tier.UNKNOWN, unlocalizedName);
+    }
+
+    private BaseEnergyBlock(int id, Material material, Tier tier, String unlocalizedName) {
         super(id, material);
+        this.tier = tier;
+
+        setUnlocalizedName(unlocalizedName);
         setCreativeTab(CreativeTabs.tabRedstone);
-        disableStats();
         setTickRandomly(true);
         setHardness(3);
 
-        this.tier = tier;
+        disableStats();
     }
 
     @Override
@@ -36,7 +46,7 @@ public abstract class BaseEnergyBlock extends Block {
     @Override
     @SideOnly(Side.CLIENT) // setIconPath
     public void registerIcons(IconRegister register) {
-        if (tier != null)
+        if (tier != Tier.UNKNOWN)
             blockIcon = register.registerIcon(RedstoneEnergyField.MOD_ID + ":" + tier.texture);
     }
     
@@ -98,7 +108,8 @@ public abstract class BaseEnergyBlock extends Block {
         if ((world.getBlockMetadata(x, y, z) == 1) && (RedstoneEnergyField.particleEffects))
             this.sparkle(world, x, y, z);
     }
-    
+
+    @SideOnly(Side.CLIENT)
     protected void sparkle(World world, int x, int y, int z) {
         Random rand = world.rand;
         double riser = 0.01D;
@@ -212,14 +223,17 @@ public abstract class BaseEnergyBlock extends Block {
 
     public enum Tier {
 
-        ONE ("Tier1"),
-        TWO ("Tier2"),
-        THREE ("Tier3");
+        UNKNOWN(null, null),
+        ONE ("Tier1", "rsEnergyBlockT1"),
+        TWO ("Tier2", "rsEnergyBlockT2"),
+        THREE ("Tier3", "rsEnergyBlockT3");
 
         public String texture;
+        public String unlocalizedName;
 
-        private Tier(String texture) {
+        private Tier(String texture, String unlocalizedName) {
             this.texture = texture;
+            this.unlocalizedName = unlocalizedName;
         }
 
     }

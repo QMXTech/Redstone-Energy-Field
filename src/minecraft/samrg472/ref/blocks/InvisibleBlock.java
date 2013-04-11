@@ -16,8 +16,7 @@ import samrg472.ref.proxies.CommonProxy;
 public class InvisibleBlock extends BaseEnergyBlock {
     
     public InvisibleBlock(int id, Material material) {
-        super(id, material, null);
-        setUnlocalizedName("invisiBlock");
+        super(id, material, "invisiBlock");
         setCreativeTab(null);
     }
 
