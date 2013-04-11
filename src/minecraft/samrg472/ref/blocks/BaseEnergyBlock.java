@@ -190,8 +190,8 @@ public abstract class BaseEnergyBlock extends Block {
         world.notifyBlocksOfNeighborChange(x, y + range, z, id);
         world.notifyBlocksOfNeighborChange(x - range, y, z, id);
         world.notifyBlocksOfNeighborChange(x + range, y, z, id);
-        world.notifyBlocksOfNeighborChange(x, range, z - 1, id);
-        world.notifyBlocksOfNeighborChange(x, range, z + 1, id);
+        world.notifyBlocksOfNeighborChange(x, y, z - range, id);
+        world.notifyBlocksOfNeighborChange(x, y, z + range, id);
     }
     
     protected static boolean isSurrounded(World world, int x, int y, int z) {
