@@ -50,6 +50,7 @@ public class RedstoneEnergyField {
     public static EnergyBlockT4 redstoneEnergyBlockT4;
 
     public static int range;
+    public static int maxRange;
     public static boolean connectEverything;
     public static boolean particleEffects;
 
@@ -76,6 +77,7 @@ public class RedstoneEnergyField {
         redstoneEnergyBlockT4 = new EnergyBlockT4(redstoneEnergyBlockT4ID, stone);
 
         range = config.get(Configuration.CATEGORY_GENERAL, "range", 5, "This controls how large the redstone energy field is and must be an odd number (if an even number is received, it will converted to an odd)").getInt();
+        maxRange = config.get(Configuration.CATEGORY_GENERAL, "max_range", 11, "Controls the max range that in-game range controlled blocks can go up to").getInt();
         connectEverything = config.get(Configuration.CATEGORY_GENERAL, "connect_everything", false, "This does not affect the energy field block\nIf you want RP2 wiring to be powered from the field rather than just the block, and dont care if it looks ugly, use this, alternatively you can use a repeater in the field").getBoolean(false);
         particleEffects = config.get(Configuration.CATEGORY_GENERAL, "particle_effects", true, "These particles shows the field the energy field block emits power to\nYou can disable entirely if you have a slower machine").getBoolean(true);
 

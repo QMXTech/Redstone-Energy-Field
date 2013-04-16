@@ -66,7 +66,7 @@ public abstract class BaseEnergyBlock extends BlockContainer {
         } else {
             manipulateField(world, RedstoneEnergyField.range, RedstoneEnergyField.invisibleEnergyBlock.blockID, x, y, z, false);
         }
-        notifyArea(world, 1, this.blockID, x, y, z);
+        notifyArea(world, this.blockID, x, y, z);
     }
 
     @Override
@@ -75,9 +75,9 @@ public abstract class BaseEnergyBlock extends BlockContainer {
 
         TileEntity entity = world.getBlockTileEntity(x, y, z);
         if ((entity != null) && (entity instanceof T4TE)) {
-            manipulateField(world, ((T4TE) entity).getRange(), this.blockID, x, y, z, true, true);
+            manipulateField(world, ((T4TE) entity).getRange(), this.blockID, x, y, z, true);
         } else {
-            manipulateField(world, RedstoneEnergyField.range, this.blockID, x, y, z, true, true);
+            manipulateField(world, RedstoneEnergyField.range, this.blockID, x, y, z, true);
         }
     }
 
@@ -85,9 +85,9 @@ public abstract class BaseEnergyBlock extends BlockContainer {
     public void onBlockHarvested(World world, int x, int y, int z, int metadata, EntityPlayer player) {
         TileEntity entity = world.getBlockTileEntity(x, y, z);
         if ((entity != null) && (entity instanceof T4TE)) {
-            manipulateField(world, ((T4TE) entity).getRange(), this.blockID, x, y, z, true, true);
+            manipulateField(world, ((T4TE) entity).getRange(), this.blockID, x, y, z, true);
         } else {
-            manipulateField(world, RedstoneEnergyField.range, this.blockID, x, y, z, true, true);
+            manipulateField(world, RedstoneEnergyField.range, this.blockID, x, y, z, true);
         }
     }
 
@@ -183,12 +183,10 @@ public abstract class BaseEnergyBlock extends BlockContainer {
     /*
      * Args x, y, z is the current position
      */
-    protected void manipulateField(World world, int range, int id, int metadata, int x, int y, int z, boolean breakBlock, boolean force) {
+    protected void manipulateField(World world, int range, int id, int metadata, int x, int y, int z, boolean breakBlock) {
         if (range % 2 == 0)
             range++;
         range = (range - 1) / 2;
-        if (!isSurrounded(world, x, y, z) && breakBlock && !force)
-            return;
         for (int x2 = x - range; x2 <= x + range; x2++) {
             for (int y2 = y - range; y2 <= y + range; y2++) {
                 for (int z2 = z - range; z2 <= z + range; z2++) {
@@ -209,45 +207,22 @@ public abstract class BaseEnergyBlock extends BlockContainer {
         }
     }
 
-    protected void manipulateField(World world, int range, int id, int x, int y, int z, boolean breakBlock, boolean force) {
-        manipulateField(world, range, id, 0, x, y, z, breakBlock, force);
-    }
-
     protected void manipulateField(World world, int range, int id, int x, int y, int z, boolean breakBlock) {
-        manipulateField(world, range, id, 0, x, y, z, breakBlock, false);
-    }
-
-    protected void manipulateField(World world, int range, int id, int metadata, int x, int y, int z, boolean breakBlock) {
-        manipulateField(world, range, id, metadata, x, y, z, breakBlock, false);
+        manipulateField(world, range, id, 0, x, y, z, breakBlock);
     }
 
     public static void breakField(World world, int range, int x, int y, int z) {
-        RedstoneEnergyField.invisibleEnergyBlock.manipulateField(world, range, 0, x, y, z, true, true);
+        RedstoneEnergyField.invisibleEnergyBlock.manipulateField(world, range, 0, x, y, z, true);
     }
 
-    protected static void notifyArea(World world, int range, int id, int x, int y, int z) {
+    protected static void notifyArea(World world, int id, int x, int y, int z) {
+        int range = 1;
         world.notifyBlocksOfNeighborChange(x, y - range, z, id);
         world.notifyBlocksOfNeighborChange(x, y + range, z, id);
         world.notifyBlocksOfNeighborChange(x - range, y, z, id);
         world.notifyBlocksOfNeighborChange(x + range, y, z, id);
         world.notifyBlocksOfNeighborChange(x, y, z - range, id);
         world.notifyBlocksOfNeighborChange(x, y, z + range, id);
-    }
-
-    protected static boolean isSurrounded(World world, int x, int y, int z) {
-        if (world.getBlockId(x, y - 1, z) == RedstoneEnergyField.invisibleEnergyBlock.blockID)
-            return true;
-        if (world.getBlockId(x, y + 1, z) == RedstoneEnergyField.invisibleEnergyBlock.blockID)
-            return true;
-        if (world.getBlockId(x, y, z - 1) == RedstoneEnergyField.invisibleEnergyBlock.blockID)
-            return true;
-        if (world.getBlockId(x, y, z + 1) == RedstoneEnergyField.invisibleEnergyBlock.blockID)
-            return true;
-        if (world.getBlockId(x - 1, y, z) == RedstoneEnergyField.invisibleEnergyBlock.blockID)
-            return true;
-        if (world.getBlockId(x + 1, y, z) == RedstoneEnergyField.invisibleEnergyBlock.blockID)
-            return true;
-        return false;
     }
 
     public enum Tier {

@@ -29,17 +29,17 @@ public class InvisibleBlock extends BaseEnergyBlock {
 
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
-        notifyArea(world, 1, this.blockID, x, y, z);
+        notifyArea(world, this.blockID, x, y, z);
     }
 
     @Override
     public void onBlockAdded(World world, int x, int y, int z) {
-        notifyArea(world, 1, this.blockID, x, y, z);
+        notifyArea(world, this.blockID, x, y, z);
     }
 
     @Override
     public void breakBlock(World world, int x, int y, int z, int par5, int par6) {
-        notifyArea(world, 1, this.blockID, x, y, z);
+        notifyArea(world, this.blockID, x, y, z);
     }
 
     @Override

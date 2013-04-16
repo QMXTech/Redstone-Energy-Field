@@ -33,7 +33,7 @@ public class EnergyBlockT4 extends BaseEnergyBlock {
         } else if (metadata == 1) {
             manipulateField(world, ((T4TE) entity).getRange(), RedstoneEnergyField.invisibleEnergyBlock.blockID, 1, x, y, z, isReceivingPower(world, x, y, z));
         }
-        notifyArea(world, 1, this.blockID, x, y, z);
+        notifyArea(world, this.blockID, x, y, z);
     }
 
     @Override
