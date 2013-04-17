@@ -10,27 +10,28 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import samrg472.ref.api.Handler;
 
 public class InteractionHandler {
-    
+
     @ForgeSubscribe
     public void rightClickBlockHandler(PlayerInteractEvent event) {
-        if (event.action == Action.RIGHT_CLICK_BLOCK) {
-            ItemStack stack = event.entityPlayer.getHeldItem();
-            if (stack == null) return;
-            if (!Handler.getHandleBlockList().contains(stack.itemID)) return;
-            int x = event.x,
-            y = event.y + 1,
-            z = event.z,
-            id = stack.itemID;
-            World world = event.entityPlayer.worldObj;
-            if (world.getBlockId(x, y, z) == RedstoneEnergyField.invisibleEnergyBlock.blockID) {
-                updateWorldAndInventory(world, event.entityPlayer, id, stack.getItemDamage(), x, y, z);
-            } else if (world.getBlockId(x, y, z) == RedstoneEnergyField.redstoneEnergyBlockT3.blockID) {
-                updateWorldAndInventory(world, event.entityPlayer, id, stack.getItemDamage(), x, y - 2, z);
-            }
-            event.setCanceled(true);
+        if (event.action != Action.RIGHT_CLICK_BLOCK)
+            return;
+
+        ItemStack stack = event.entityPlayer.getHeldItem();
+        if (stack == null) return;
+        if (!Handler.getHandleBlockList().contains(stack.itemID)) return;
+        int x = event.x,
+                y = event.y + 1,
+                z = event.z,
+                id = stack.itemID;
+        World world = event.entityPlayer.worldObj;
+        if (world.getBlockId(x, y, z) == RedstoneEnergyField.invisibleEnergyBlock.blockID) {
+            updateWorldAndInventory(world, event.entityPlayer, id, stack.getItemDamage(), x, y, z);
+        } else if (world.getBlockId(x, y, z) == RedstoneEnergyField.redstoneEnergyBlockT3.blockID) {
+            updateWorldAndInventory(world, event.entityPlayer, id, stack.getItemDamage(), x, y - 2, z);
         }
+        event.setCanceled(true);
     }
-    
+
     private static void updateWorldAndInventory(World world, EntityPlayer player, int id, int metadata, int x, int y, int z) {
         Block block = Block.blocksList[id];
         if (block == null) return;
@@ -43,5 +44,5 @@ public class InteractionHandler {
         }
         world.setBlock(x, y, z, id, metadata, 0x02);
     }
-    
+
 }
