@@ -4,6 +4,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 import samrg472.ref.RedstoneEnergyField;
 
 import java.util.Random;
@@ -85,6 +86,11 @@ public class InvisibleBlock extends BaseEnergyBlock {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float par7, float par8, float par9) {
         return false;
+    }
+
+    @Override
+    public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side) {
+        return side == ForgeDirection.DOWN;
     }
 
 }
