@@ -2,10 +2,8 @@ package samrg472.ref;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.PostInit;
-import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -22,6 +20,7 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import samrg472.ref.api.Handler;
 import samrg472.ref.blocks.*;
+import samrg472.ref.items.REFItemBlock;
 import samrg472.ref.network.PacketHandler;
 import samrg472.ref.proxies.CommonProxy;
 import samrg472.ref.tileentities.T4TE;
@@ -33,7 +32,7 @@ import java.io.File;
 public class RedstoneEnergyField {
 
     public static final String CHANNEL = "REFNETWORK";
-    public static final String MOD_ID = "REF";
+    public static final String MOD_ID = "ref";
 
     @SidedProxy(clientSide = "samrg472.ref.proxies.ClientProxy", serverSide = "samrg472.ref.proxies.CommonProxy")
     public static CommonProxy proxy;
@@ -54,7 +53,7 @@ public class RedstoneEnergyField {
     public static boolean connectEverything;
     public static boolean particleEffects;
 
-    @PreInit
+    @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         File suggestedConfiguration = event.getSuggestedConfigurationFile();
 
@@ -84,22 +83,15 @@ public class RedstoneEnergyField {
         config.save();
     }
 
-    @Init
+    @EventHandler
     public void init(FMLInitializationEvent event) {
         proxy.initialize();
         MinecraftForge.EVENT_BUS.register(new InteractionHandler());
 
-        GameRegistry.registerBlock(redstoneEnergyBlockT1, BaseEnergyBlock.Tier.ONE.unlocalizedName);
-        LanguageRegistry.addName(redstoneEnergyBlockT1, "Redstone Energy Field T1");
-
-        GameRegistry.registerBlock(redstoneEnergyBlockT2, BaseEnergyBlock.Tier.TWO.unlocalizedName);
-        LanguageRegistry.addName(redstoneEnergyBlockT2, "Redstone Energy Field T2");
-
-        GameRegistry.registerBlock(redstoneEnergyBlockT3, BaseEnergyBlock.Tier.THREE.unlocalizedName);
-        LanguageRegistry.addName(redstoneEnergyBlockT3, "Redstone Energy Field T3");
-
-        GameRegistry.registerBlock(redstoneEnergyBlockT4, BaseEnergyBlock.Tier.FOUR.unlocalizedName);
-        LanguageRegistry.addName(redstoneEnergyBlockT4, "Redstone Energy Field T4");
+        GameRegistry.registerBlock(redstoneEnergyBlockT1, REFItemBlock.class, BaseEnergyBlock.Tier.ONE.unlocalizedName);
+        GameRegistry.registerBlock(redstoneEnergyBlockT2, REFItemBlock.class, BaseEnergyBlock.Tier.TWO.unlocalizedName);
+        GameRegistry.registerBlock(redstoneEnergyBlockT3, REFItemBlock.class, BaseEnergyBlock.Tier.THREE.unlocalizedName);
+        GameRegistry.registerBlock(redstoneEnergyBlockT4, REFItemBlock.class, BaseEnergyBlock.Tier.FOUR.unlocalizedName);
 
         GameRegistry.registerBlock(invisibleEnergyBlock, InvisibleBlock.unlocalizedName);
         GameRegistry.registerTileEntity(T4TE.class, "T4TE");
@@ -108,7 +100,7 @@ public class RedstoneEnergyField {
         addDefaultIgnoreList();
     }
 
-    @PostInit
+    @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         if (Loader.isModLoaded("RedPowerWiring")) {
             System.out.println("RedPowerWiring has been found, adding compatibility");
@@ -132,10 +124,10 @@ public class RedstoneEnergyField {
         ItemStack iron = new ItemStack(Item.ingotIron);
         ItemStack redstone = new ItemStack(Item.redstone);
 
-        GameRegistry.addRecipe(new ItemStack(redstoneEnergyBlockT1, 1), "iri", "rpr", "iri", 'i', iron, 'r', redstone, 'p', new ItemStack(Item.enderPearl));
-        GameRegistry.addRecipe(new ItemStack(redstoneEnergyBlockT2, 1), "iri", "rpr", "iri", 'i', iron, 'r', redstone, 'p', new ItemStack(redstoneEnergyBlockT1));
-        GameRegistry.addRecipe(new ItemStack(redstoneEnergyBlockT3, 1), "iri", "rpr", "iri", 'i', iron, 'r', redstone, 'p', new ItemStack(redstoneEnergyBlockT2));
-        GameRegistry.addRecipe(new ItemStack(redstoneEnergyBlockT4, 1), "iri", "rpr", "iri", 'i', iron, 'r', redstone, 'p', new ItemStack(redstoneEnergyBlockT3));
+        GameRegistry.addRecipe(new ItemStack(redstoneEnergyBlockT1, 1), "iri", "rpr", "iri", 'i', Block.stone, 'r', redstone, 'p', new ItemStack(Item.enderPearl));
+        GameRegistry.addRecipe(new ItemStack(redstoneEnergyBlockT2, 1), "iri", "rpr", "iri", 'i', Block.stone, 'r', Item.netherQuartz, 'p', new ItemStack(redstoneEnergyBlockT1));
+        GameRegistry.addRecipe(new ItemStack(redstoneEnergyBlockT3, 1), "iri", "rpr", "iri", 'i', Block.stone, 'r', new ItemStack(Item.dyePowder, 1, 4), 'p', new ItemStack(redstoneEnergyBlockT2));
+        GameRegistry.addRecipe(new ItemStack(redstoneEnergyBlockT4, 1), "iri", "rpr", "iri", 'i', Block.stone, 'r', Item.eyeOfEnder, 'p', new ItemStack(redstoneEnergyBlockT3));
     }
 
     public void addDefaultIgnoreList() {

@@ -55,6 +55,6 @@ public class T4Gui extends GuiContainer {
     }
 
     public int getCenteredX(String s) {
-        return (width - fontRenderer.getStringWidth(s)) / 2;
+        return (this.xSize - fontRenderer.getStringWidth(s)) / 2;
     }
 }
