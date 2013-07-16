@@ -10,7 +10,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -121,7 +120,6 @@ public class RedstoneEnergyField {
     }
 
     public void addRecipes() {
-        ItemStack iron = new ItemStack(Item.ingotIron);
         ItemStack redstone = new ItemStack(Item.redstone);
 
         GameRegistry.addRecipe(new ItemStack(redstoneEnergyBlockT1, 1), "iri", "rpr", "iri", 'i', Block.stone, 'r', redstone, 'p', new ItemStack(Item.enderPearl));

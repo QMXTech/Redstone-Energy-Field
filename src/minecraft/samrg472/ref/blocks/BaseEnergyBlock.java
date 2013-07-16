@@ -8,7 +8,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -176,9 +175,7 @@ public abstract class BaseEnergyBlock extends BlockContainer {
             return true;
         if (!ignoreList.contains(blockAccess.getBlockId(x - 1, y, z)) && (blockAccess.isBlockProvidingPowerTo(x - 1, y, z, 4) > 0)) // west
             return true;
-        if (!ignoreList.contains(blockAccess.getBlockId(x + 1, y, z)) && (blockAccess.isBlockProvidingPowerTo(x + 1, y, z, 5) > 0)) // east
-            return true;
-        return false;
+        return !ignoreList.contains(blockAccess.getBlockId(x + 1, y, z)) && (blockAccess.isBlockProvidingPowerTo(x + 1, y, z, 5) > 0);
     }
 
     /*
