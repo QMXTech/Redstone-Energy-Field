@@ -1,12 +1,10 @@
 package samrg472.ref;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -80,26 +78,6 @@ public class RedstoneEnergyField {
 
         addRecipes();
         addDefaultIgnoreList();
-    }
-
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
-        if (Loader.isModLoaded("RedPowerWiring")) {
-            System.out.println("RedPowerWiring has been found, adding compatibility");
-            File RPConfig = new File(configDir, "redpower/redpower.cfg");
-            if (!RPConfig.isFile()) {
-                System.out.println("Error: Unable to locate your RedPower2 configuration");
-                return;
-            }
-            Configuration config = new Configuration(RPConfig);
-            config.load();
-
-            int id = config.get("blocks.base", "microblock.id", 0).getInt();
-            Handler.addBlockHandling(id);
-            Handler.addIgnoreID(id);
-        } else {
-            System.out.println("Disabling RedPower compatibility");
-        }
     }
 
     public void addRecipes() {
