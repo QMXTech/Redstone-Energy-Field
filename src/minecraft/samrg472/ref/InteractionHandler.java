@@ -24,9 +24,9 @@ public class InteractionHandler {
                 z = event.z,
                 id = stack.itemID;
         World world = event.entityPlayer.worldObj;
-        if (world.getBlockId(x, y, z) == RedstoneEnergyField.invisibleEnergyBlock.blockID) {
+        if (world.getBlockId(x, y, z) == References.invisibleEnergyBlock.blockID) {
             updateWorldAndInventory(world, event.entityPlayer, id, stack.getItemDamage(), x, y, z);
-        } else if (world.getBlockId(x, y, z) == RedstoneEnergyField.redstoneEnergyBlockT3.blockID) {
+        } else if (world.getBlockId(x, y, z) == References.redstoneEnergyBlockT3.blockID) {
             updateWorldAndInventory(world, event.entityPlayer, id, stack.getItemDamage(), x, y - 2, z);
         }
         event.setCanceled(true);

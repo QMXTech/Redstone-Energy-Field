@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.tileentity.TileEntity;
-import samrg472.ref.RedstoneEnergyField;
+import samrg472.ref.References;
 import samrg472.ref.blocks.BaseEnergyBlock;
 import samrg472.ref.network.ICustomPacketHandler;
 import samrg472.ref.network.PacketBuilder;
@@ -51,7 +51,7 @@ public class T4TE extends TileEntity implements ICustomPacketHandler {
                 _range--;
             else
                 _range++;
-        if ((_range < 0) || (_range > RedstoneEnergyField.maxRange))
+        if ((_range < 0) || (_range > References.getMaxRange()))
             return;
 
         BaseEnergyBlock.breakField(getWorldObj(), range, xCoord, yCoord, zCoord);

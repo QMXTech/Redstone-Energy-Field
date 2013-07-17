@@ -1,7 +1,7 @@
 package samrg472.ref.network;
 
 import net.minecraft.network.packet.Packet250CustomPayload;
-import samrg472.ref.RedstoneEnergyField;
+import samrg472.ref.References;
 import samrg472.ref.utils.Vector;
 
 import java.io.ByteArrayOutputStream;
@@ -25,7 +25,7 @@ public class PacketBuilder {
             e.printStackTrace();
         }
 
-        return new Packet250CustomPayload(RedstoneEnergyField.CHANNEL, baos.toByteArray());
+        return new Packet250CustomPayload(References.CHANNEL, baos.toByteArray());
     }
 
 }

@@ -13,7 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-import samrg472.ref.RedstoneEnergyField;
+import samrg472.ref.References;
 import samrg472.ref.api.Handler;
 import samrg472.ref.tileentities.T4TE;
 
@@ -56,16 +56,16 @@ public abstract class BaseEnergyBlock extends BlockContainer {
     @SideOnly(Side.CLIENT) // setIconPath
     public void registerIcons(IconRegister register) {
         if (tier != Tier.UNKNOWN)
-            blockIcon = register.registerIcon(RedstoneEnergyField.MOD_ID + ":" + tier.texture);
+            blockIcon = register.registerIcon(References.MOD_ID + ":" + tier.texture);
     }
 
     @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         TileEntity entity = world.getBlockTileEntity(x, y, z);
         if ((entity != null) && (entity instanceof T4TE)) {
-            manipulateField(world, ((T4TE) entity).getRange(), RedstoneEnergyField.invisibleEnergyBlock.blockID, x, y, z, false);
+            manipulateField(world, ((T4TE) entity).getRange(), References.invisibleEnergyBlock.blockID, x, y, z, false);
         } else {
-            manipulateField(world, RedstoneEnergyField.range, RedstoneEnergyField.invisibleEnergyBlock.blockID, x, y, z, false);
+            manipulateField(world, References.getRange(), References.invisibleEnergyBlock.blockID, x, y, z, false);
         }
         notifyArea(world, this.blockID, x, y, z);
     }
@@ -78,7 +78,7 @@ public abstract class BaseEnergyBlock extends BlockContainer {
         if ((entity != null) && (entity instanceof T4TE)) {
             manipulateField(world, ((T4TE) entity).getRange(), this.blockID, x, y, z, true);
         } else {
-            manipulateField(world, RedstoneEnergyField.range, this.blockID, x, y, z, true);
+            manipulateField(world, References.getRange(), this.blockID, x, y, z, true);
         }
     }
 
@@ -88,7 +88,7 @@ public abstract class BaseEnergyBlock extends BlockContainer {
         if ((entity != null) && (entity instanceof T4TE)) {
             manipulateField(world, ((T4TE) entity).getRange(), this.blockID, x, y, z, true);
         } else {
-            manipulateField(world, RedstoneEnergyField.range, this.blockID, x, y, z, true);
+            manipulateField(world, References.getRange(), this.blockID, x, y, z, true);
         }
     }
 
@@ -131,7 +131,7 @@ public abstract class BaseEnergyBlock extends BlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
-        if ((world.getBlockMetadata(x, y, z) == 1) && (RedstoneEnergyField.particleEffects))
+        if ((world.getBlockMetadata(x, y, z) == 1) && (References.showParticleEffects()))
             this.sparkle(world, x, y, z);
     }
 
@@ -192,7 +192,7 @@ public abstract class BaseEnergyBlock extends BlockContainer {
                     if (breakBlock) {
                         if (world.isAirBlock(x2, y2, z2)) {
                             Block b = blocksList[world.getBlockId(x2, y2, z2)];
-                            if ((b != null) && (b.blockID == RedstoneEnergyField.invisibleEnergyBlock.blockID)) {
+                            if ((b != null) && (b.blockID == References.invisibleEnergyBlock.blockID)) {
                                 world.setBlock(x2, y2, z2, 0, 0, 0x02);
                             }
                         }
@@ -230,7 +230,7 @@ public abstract class BaseEnergyBlock extends BlockContainer {
     }
 
     public static void breakField(World world, int range, int x, int y, int z) {
-        RedstoneEnergyField.invisibleEnergyBlock.manipulateField(world, range, 0, x, y, z, true);
+        References.invisibleEnergyBlock.manipulateField(world, range, 0, x, y, z, true);
     }
 
     protected static void notifyArea(World world, int id, int x, int y, int z) {

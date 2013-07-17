@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-import samrg472.ref.RedstoneEnergyField;
+import samrg472.ref.References;
 
 import java.util.Random;
 
@@ -25,7 +25,7 @@ public class InvisibleBlock extends BaseEnergyBlock {
 
     @Override
     public boolean canProvidePower() {
-        return RedstoneEnergyField.connectEverything;
+        return References.canConnectEverything();
     }
 
     @Override

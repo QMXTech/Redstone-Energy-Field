@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
-import samrg472.ref.RedstoneEnergyField;
+import samrg472.ref.References;
 import samrg472.ref.utils.Vector;
 
 import java.io.ByteArrayInputStream;
@@ -17,7 +17,7 @@ public class PacketHandler implements IPacketHandler {
 
     @Override
     public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
-        if (!packet.channel.equals(RedstoneEnergyField.CHANNEL))
+        if (!packet.channel.equals(References.CHANNEL))
             return;
         try {
             DataInputStream dis = new DataInputStream(new ByteArrayInputStream(packet.data));

@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import samrg472.ref.RedstoneEnergyField;
+import samrg472.ref.References;
 import samrg472.ref.network.PacketBuilder;
 import samrg472.ref.network.PacketHandler;
 import samrg472.ref.tileentities.T4TE;
@@ -29,9 +30,9 @@ public class EnergyBlockT4 extends BaseEnergyBlock {
         if ((entity == null) || !(entity instanceof T4TE))
             return;
         if (metadata == 0) {
-            manipulateField(world, ((T4TE) entity).getRange(), RedstoneEnergyField.invisibleEnergyBlock.blockID, x, y, z, isReceivingPower(world, x, y, z));
+            manipulateField(world, ((T4TE) entity).getRange(), References.invisibleEnergyBlock.blockID, x, y, z, isReceivingPower(world, x, y, z));
         } else if (metadata == 1) {
-            manipulateField(world, ((T4TE) entity).getRange(), RedstoneEnergyField.invisibleEnergyBlock.blockID, 1, x, y, z, isReceivingPower(world, x, y, z));
+            manipulateField(world, ((T4TE) entity).getRange(), References.invisibleEnergyBlock.blockID, 1, x, y, z, isReceivingPower(world, x, y, z));
         }
         notifyArea(world, this.blockID, x, y, z);
     }
