@@ -38,6 +38,9 @@ public class EnergyBlockT4 extends BaseEnergyBlock {
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float par7, float par8, float par9) {
+        if (!shouldBlockBeActivated(player.getHeldItem()))
+            return false;
+
         TileEntity entity = world.getBlockTileEntity(x, y, z);
         if ((entity == null) || !(entity instanceof T4TE))
             return false;

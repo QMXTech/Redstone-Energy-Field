@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -207,6 +208,25 @@ public abstract class BaseEnergyBlock extends BlockContainer {
 
     protected void manipulateField(World world, int range, int id, int x, int y, int z, boolean breakBlock) {
         manipulateField(world, range, id, 0, x, y, z, breakBlock);
+    }
+
+    public boolean shouldBlockBeActivated(ItemStack stack) {
+        if (stack == null)
+            return true;
+        ItemStack current = stack.copy();
+        if (current != null) {
+            if (current.itemID == Block.lever.blockID)
+                return false;
+            else if (current.itemID == Block.pressurePlatePlanks.blockID)
+                return false;
+            else if (current.itemID == Block.pressurePlateStone.blockID)
+                return false;
+            else if (current.itemID == Block.pressurePlateIron.blockID)
+                return false;
+            else if (current.itemID == Block.pressurePlateGold.blockID)
+                return false;
+        }
+        return true;
     }
 
     public static void breakField(World world, int range, int x, int y, int z) {

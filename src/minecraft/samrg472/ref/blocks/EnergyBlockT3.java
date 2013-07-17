@@ -26,6 +26,9 @@ public class EnergyBlockT3 extends BaseEnergyBlock {
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float par7, float par8, float par9) {
+        if (!shouldBlockBeActivated(player.getHeldItem()))
+            return false;
+
         int metadata = world.getBlockMetadata(x, y, z);
         if (metadata == 0) {
             world.setBlock(x, y, z, RedstoneEnergyField.redstoneEnergyBlockT3.blockID, 1, 0x02);
