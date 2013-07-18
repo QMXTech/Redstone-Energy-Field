@@ -54,7 +54,8 @@ public class T4TE extends TileEntity implements ICustomPacketHandler {
         if ((_range < 0) || (_range > References.getMaxRange()))
             return;
 
-        BaseEnergyBlock.breakField(getWorldObj(), range, xCoord, yCoord, zCoord);
+        if (_range < range)
+            BaseEnergyBlock.breakField(getWorldObj(), range, xCoord, yCoord, zCoord);
         this.range = _range;
     }
 
