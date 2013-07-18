@@ -25,8 +25,8 @@ public class T4Gui extends GuiContainer {
     @SuppressWarnings("unchecked")
     public void initGui() {
         super.initGui();
-        buttonList.add(new GuiButton(1, getCenteredX("-") / 2, 63, 20, 20, "-"));
-        buttonList.add(new GuiButton(2, (getCenteredX("+") / 2) + 90, 63, 20, 20, "+")); // x + 90 of - button
+        buttonList.add(new GuiButton(1, getCenteredX("-", width) - 40, height / 2, 20, 20, "-"));
+        buttonList.add(new GuiButton(2, (getCenteredX("+", width)) + 35, height / 2, 20, 20, "+"));
     }
 
     @Override
@@ -36,7 +36,7 @@ public class T4Gui extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int param1, int param2) {
-        drawString(fontRenderer, "Range: " + tileEntity.getRange(), (getCenteredX("Range: ") / 2) - 150, 63, 0xFFFFFF);
+        fontRenderer.drawString("Range: " + tileEntity.getRange(), getCenteredX("Range: "), ySize / 2 + 7, 0xFFFFFF);
     }
 
     @Override
@@ -55,6 +55,10 @@ public class T4Gui extends GuiContainer {
     }
 
     public int getCenteredX(String s) {
-        return (this.xSize - fontRenderer.getStringWidth(s)) / 2;
+        return getCenteredX(s, xSize);
+    }
+
+    public int getCenteredX(String s, int size) {
+        return (size - fontRenderer.getStringWidth(s)) / 2;
     }
 }
