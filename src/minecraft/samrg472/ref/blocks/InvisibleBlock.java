@@ -16,11 +16,22 @@ public class InvisibleBlock extends BaseEnergyBlock {
     public InvisibleBlock(int id, Material material) {
         super(id, material, unlocalizedName);
         setCreativeTab(null);
+        disableStats();
     }
 
     @Override
     public int getRenderType() {
         return -1;
+    }
+
+    @Override
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
+
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
     }
 
     @Override
@@ -54,17 +65,12 @@ public class InvisibleBlock extends BaseEnergyBlock {
     }
 
     @Override
-    public boolean isOpaqueCube() {
-        return false;
-    }
-
-    @Override
-    public boolean renderAsNormalBlock() {
-        return false;
-    }
-
-    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
+        return null;
+    }
+
+    @Override
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
         return null;
     }
 
@@ -81,6 +87,11 @@ public class InvisibleBlock extends BaseEnergyBlock {
     @Override
     public boolean canPlaceBlockAt(World world, int x, int y, int z) {
         return false;
+    }
+
+    @Override
+    public boolean canBeReplacedByLeaves(World world, int x, int y, int z) {
+        return true;
     }
 
     @Override
