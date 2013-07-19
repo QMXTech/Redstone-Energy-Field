@@ -136,6 +136,7 @@ public abstract class BaseEnergyBlock extends BlockContainer {
     }
 
     @SideOnly(Side.CLIENT)
+    @SuppressWarnings("ConstantConditions")
     protected void sparkle(World world, int x, int y, int z) {
         Random rand = world.rand;
         double riser = 0.01D;
@@ -233,6 +234,7 @@ public abstract class BaseEnergyBlock extends BlockContainer {
         References.invisibleEnergyBlock.manipulateField(world, range, 0, x, y, z, true);
     }
 
+    @SuppressWarnings("ConstantConditions")
     protected static void notifyArea(World world, int id, int x, int y, int z) {
         int range = 1;
         world.notifyBlocksOfNeighborChange(x, y - range, z, id);
