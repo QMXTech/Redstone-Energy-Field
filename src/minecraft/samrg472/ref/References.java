@@ -5,8 +5,10 @@ import samrg472.ref.blocks.*;
 
 public class References {
 
-    public static final String CHANNEL = "REFNETWORK";
-    public static final String MOD_ID = "ref";
+    public static final String VERSION = "0.5";
+    public static final String CHANNEL = "REF";
+    public static final String MOD_ID = "REF";
+    public static final String MOD_NAME = "Redstone Energy Field";
 
     public static InvisibleBlock invisibleEnergyBlock;
     public static EnergyBlockT1 redstoneEnergyBlockT1;

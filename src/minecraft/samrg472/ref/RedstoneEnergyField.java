@@ -24,7 +24,7 @@ import samrg472.ref.tileentities.T4TE;
 
 import java.io.File;
 
-@Mod(modid = References.MOD_ID, name = "Redstone Energy Field", version = "0.5", useMetadata = false)
+@Mod(modid = References.MOD_ID, name = References.MOD_NAME, version = References.VERSION, useMetadata = false)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = {References.CHANNEL}, packetHandler = PacketHandler.class)
 public class RedstoneEnergyField {
 
