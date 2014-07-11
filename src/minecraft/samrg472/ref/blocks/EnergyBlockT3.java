@@ -9,19 +9,19 @@ import java.util.Random;
 
 public class EnergyBlockT3 extends BaseEnergyBlock {
 
-    public EnergyBlockT3(int id, Material material) {
-        super(id, material, Tier.THREE);
+    public EnergyBlockT3() {
+        super(Tier.THREE);
     }
 
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
         int metadata = world.getBlockMetadata(x, y, z);
         if (metadata == 0) {
-            manipulateField(world, References.getRange(), References.invisibleEnergyBlock.blockID, x, y, z, isReceivingPower(world, x, y, z));
+            manipulateField(world, References.getRange(), References.invisibleEnergyBlock, x, y, z, isReceivingPower(world, x, y, z));
         } else if (metadata == 1) {
-            manipulateField(world, References.getRange(), References.invisibleEnergyBlock.blockID, 1, x, y, z, isReceivingPower(world, x, y, z));
+            manipulateField(world, References.getRange(), References.invisibleEnergyBlock, 1, x, y, z, isReceivingPower(world, x, y, z));
         }
-        notifyArea(world, this.blockID, x, y, z);
+        notifyArea(world, this, x, y, z);
     }
 
     @Override
@@ -31,11 +31,12 @@ public class EnergyBlockT3 extends BaseEnergyBlock {
 
         int metadata = world.getBlockMetadata(x, y, z);
         if (metadata == 0) {
-            world.setBlock(x, y, z, References.redstoneEnergyBlockT3.blockID, 1, 0x02);
-            manipulateField(world, References.getRange(), References.invisibleEnergyBlock.blockID, 1, x, y, z, isReceivingPower(world, x, y, z));
+        	// so, what's wrong with writing 2? :P
+            world.setBlock(x, y, z, References.redstoneEnergyBlockT3, 1, 0x02);
+            manipulateField(world, References.getRange(), References.invisibleEnergyBlock, 1, x, y, z, isReceivingPower(world, x, y, z));
         } else if (metadata == 1) {
-            world.setBlock(x, y, z, References.redstoneEnergyBlockT3.blockID, 0, 0x02);
-            manipulateField(world, References.getRange(), References.invisibleEnergyBlock.blockID, 0, x, y, z, isReceivingPower(world, x, y, z));
+            world.setBlock(x, y, z, References.redstoneEnergyBlockT3, 0, 0x02);
+            manipulateField(world, References.getRange(), References.invisibleEnergyBlock, 0, x, y, z, isReceivingPower(world, x, y, z));
         }
         return true;
     }

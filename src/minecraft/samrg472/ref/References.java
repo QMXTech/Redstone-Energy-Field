@@ -1,6 +1,6 @@
 package samrg472.ref;
 
-import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.config.Configuration;
 import samrg472.ref.blocks.*;
 
 public class References {

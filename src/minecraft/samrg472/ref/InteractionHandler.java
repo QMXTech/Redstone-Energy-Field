@@ -1,39 +1,40 @@
 package samrg472.ref;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import samrg472.ref.api.Handler;
+import samrg472.ref.utils.ContentUtils;
 
 public class InteractionHandler {
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void rightClickBlockHandler(PlayerInteractEvent event) {
         if (event.action != Action.RIGHT_CLICK_BLOCK)
             return;
 
         ItemStack stack = event.entityPlayer.getHeldItem();
         if (stack == null) return;
-        if (!Handler.getHandleBlockList().contains(stack.itemID)) return;
+        if (!Handler.getHandleBlockList().contains(ContentUtils.getIdent(stack))) return;
         int x = event.x,
-                y = event.y + 1,
-                z = event.z,
-                id = stack.itemID;
+            y = event.y + 1,
+            z = event.z;
         World world = event.entityPlayer.worldObj;
-        if (world.getBlockId(x, y, z) == References.invisibleEnergyBlock.blockID) {
-            updateWorldAndInventory(world, event.entityPlayer, id, stack.getItemDamage(), x, y, z);
-        } else if (world.getBlockId(x, y, z) == References.redstoneEnergyBlockT3.blockID) {
-            updateWorldAndInventory(world, event.entityPlayer, id, stack.getItemDamage(), x, y - 2, z);
+        if (world.getBlock(x, y, z) == References.invisibleEnergyBlock) {
+            updateWorldAndInventory(world, event.entityPlayer, stack.getItem(), stack.getItemDamage(), x, y, z);
+        } else if (world.getBlock(x, y, z) == References.redstoneEnergyBlockT3) {
+            updateWorldAndInventory(world, event.entityPlayer, stack.getItem(), stack.getItemDamage(), x, y - 2, z);
         }
         event.setCanceled(true);
     }
 
-    private static void updateWorldAndInventory(World world, EntityPlayer player, int id, int metadata, int x, int y, int z) {
-        Block block = Block.blocksList[id];
+    private static void updateWorldAndInventory(World world, EntityPlayer player, Item item, int metadata, int x, int y, int z) {
+        Block block = Block.getBlockFromItem(item);
         if (block == null) return;
         if (!player.capabilities.isCreativeMode) {
             ItemStack stack = ItemStack.copyItemStack(player.getHeldItem());
@@ -42,7 +43,7 @@ public class InteractionHandler {
                 stack = null;
             player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
         }
-        world.setBlock(x, y, z, id, metadata, 0x02);
+        world.setBlock(x, y, z, block, metadata, 0x02);
     }
 
 }

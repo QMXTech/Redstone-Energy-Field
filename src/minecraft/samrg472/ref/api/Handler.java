@@ -4,36 +4,41 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import samrg472.ref.utils.ContentUtils;
+import net.minecraft.block.Block;
+
 public class Handler {
     
-    private static List<Integer> ignoreList = new ArrayList<Integer>();
-    private static List<Integer> handle = new ArrayList<Integer>();
+    private static List<String> ignoreList = new ArrayList<String>();
+    private static List<String> handle = new ArrayList<String>();
 
     /**
      * Adds an ID to the ignore list to prevent this redstone device from turning off the field
-     * @param id block id
-     * @return param id
+     * @param block block
+     * @return param blockName
      */
-    public static int addIgnoreID(int id) {
-        if (!ignoreList.contains(id))
-            ignoreList.add(id);
-        return id;
+    public static String addIgnore(Block block) {
+    	String blockName = ContentUtils.getIdent(block);
+        if (!ignoreList.contains(blockName))
+            ignoreList.add(blockName);
+        return blockName;
     }
 
     /**
      * If a block cannot be placed down in the field, you can add manual handling here
-     * @param id
+     * @param block
      */
-    public static void addBlockHandling(int id) {
-        if (!handle.contains(id))
-            handle.add(id);
+    public static void addBlockHandling(Block block) {
+    	String blockName = Block.blockRegistry.getNameForObject(block);
+        if (!handle.contains(blockName))
+            handle.add(blockName);
     }
     
-    public static List<Integer> getIgnoreList() {
+    public static List<String> getIgnoreList() {
         return Collections.unmodifiableList(ignoreList);
     }
     
-    public static List<Integer> getHandleBlockList() {
+    public static List<String> getHandleBlockList() {
         return Collections.unmodifiableList(handle);
     }
     

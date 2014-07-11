@@ -11,24 +11,24 @@ import java.util.List;
 
 public class REFItemBlock extends ItemBlock {
 
-    public REFItemBlock(int par1) {
-        super(par1);
+    public REFItemBlock(Block block) {
+        super(block);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-        BaseEnergyBlock block = (BaseEnergyBlock) Block.blocksList[stack.itemID];
+        BaseEnergyBlock block = (BaseEnergyBlock) Block.getBlockFromItem(stack.getItem());
         if (block != null) {
             String name = block.tier.texture;
             list.add(name.substring(0, 4) + " " + name.substring(4));
             switch (block.tier) {
                 case FOUR:
-                    list.add("Ability to customize field range (max range " + References.getMaxRange() + ")");
+                    list.add("\u00A76Ability to customize field range (max " + References.getMaxRange() + ").");
                 case THREE:
-                    list.add("Ability to spawn particles of the field");
+                    list.add("\u00A7dAbility to see the field's range.");
                 case TWO:
-                    list.add("Ability to be turned off");
+                    list.add("\u00A7fAbility to be turned off.");
                     break;
                 case ONE:
                     break;

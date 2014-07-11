@@ -11,7 +11,8 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void initialize() {
-        NetworkRegistry.instance().registerGuiHandler(RedstoneEnergyField.instance, new GuiHandler());
+    	super.initialize();
+        NetworkRegistry.INSTANCE.registerGuiHandler(RedstoneEnergyField.instance, new GuiHandler());
     }
 
     @Override

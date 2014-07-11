@@ -1,10 +1,13 @@
 package samrg472.ref.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import samrg472.ref.References;
 
 import java.util.Random;
@@ -13,8 +16,8 @@ public class InvisibleBlock extends BaseEnergyBlock {
 
     public static final String unlocalizedName = "invisiblePoweredBlock";
 
-    public InvisibleBlock(int id, Material material) {
-        super(id, material, unlocalizedName);
+    public InvisibleBlock(Material material) {
+        super(material, unlocalizedName);
         setCreativeTab(null);
         disableStats();
     }
@@ -41,22 +44,22 @@ public class InvisibleBlock extends BaseEnergyBlock {
 
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
-        notifyArea(world, this.blockID, x, y, z);
+        notifyArea(world, this, x, y, z);
     }
 
     @Override
     public void onBlockAdded(World world, int x, int y, int z) {
-        notifyArea(world, this.blockID, x, y, z);
+        notifyArea(world, this, x, y, z);
     }
 
     @Override
-    public void breakBlock(World world, int x, int y, int z, int par5, int par6) {
-        notifyArea(world, this.blockID, x, y, z);
+    public void breakBlock(World world, int x, int y, int z, Block block, int par6) {
+        notifyArea(world, this, x, y, z);
     }
 
     @Override
     public void onBlockHarvested(World world, int x, int y, int z, int metadata, EntityPlayer player) {
-        world.setBlock(x, y, z, 0, 0, 0x02);
+        world.setBlock(x, y, z, Blocks.air, 0, 0x02);
     }
 
     @Override
@@ -80,7 +83,7 @@ public class InvisibleBlock extends BaseEnergyBlock {
     }
 
     @Override
-    public boolean isAirBlock(World world, int x, int y, int z) {
+    public boolean isAir(IBlockAccess world, int x, int y, int z) {
         return true;
     }
 
@@ -90,7 +93,7 @@ public class InvisibleBlock extends BaseEnergyBlock {
     }
 
     @Override
-    public boolean canBeReplacedByLeaves(World world, int x, int y, int z) {
+    public boolean canBeReplacedByLeaves(IBlockAccess world, int x, int y, int z) {
         return true;
     }
 
@@ -100,8 +103,8 @@ public class InvisibleBlock extends BaseEnergyBlock {
     }
 
     @Override
-    public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side) {
-        return side == ForgeDirection.DOWN;
+    public boolean isBlockSolid(IBlockAccess world, int x, int y, int z, int side) {
+        return side == ForgeDirection.DOWN.ordinal();
     }
 
 }

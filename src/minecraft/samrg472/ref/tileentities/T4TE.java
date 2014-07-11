@@ -1,16 +1,17 @@
 package samrg472.ref.tileentities;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import samrg472.ref.References;
 import samrg472.ref.blocks.BaseEnergyBlock;
 import samrg472.ref.network.ICustomPacketHandler;
-import samrg472.ref.network.PacketBuilder;
+import samrg472.ref.network.MessageTileEntity;
 import samrg472.ref.network.PacketHandler;
 import samrg472.ref.utils.Vector;
 
@@ -59,31 +60,37 @@ public class T4TE extends TileEntity implements ICustomPacketHandler {
         this.range = _range;
     }
 
-    @Override
-    public void onPacket(INetworkManager manager, DataInputStream packet, EntityPlayer player, Vector vector) throws IOException {
-        RequestType type = RequestType.values()[packet.readInt()];
-        switch (type) {
-            case DECREASE: // Client sent only
-                decreaseRange();
-                break;
-            case INCREASE: // Client sent only
-                increaseRange();
-                break;
-            case GETRANGE: // Client sent only
-                PacketDispatcher.sendPacketToPlayer(PacketBuilder.buildPacket(PacketHandler.PacketType.TILEENTITY.ordinal(), vector, RequestType.SETRANGE.ordinal(), range), (Player) player);
-                break;
-            case SETRANGE: // Server sent only
-                if (FMLCommonHandler.instance().getEffectiveSide().isClient())
-                    range = packet.readInt();
-                break;
-        }
-    }
-
     public enum RequestType {
         DECREASE,
         INCREASE,
-        GETRANGE,
         SETRANGE
+    }
 
+	@Override
+	public void onPacket(EntityPlayer player, int type, Vector vector) {
+        switch (RequestType.values()[type]) {
+        	case DECREASE: // Client sent only
+        		decreaseRange();
+        		break;
+        	case INCREASE: // Client sent only
+        		increaseRange();
+        		break;
+        	case SETRANGE: // Server sent only
+        		if (FMLCommonHandler.instance().getEffectiveSide().isClient())
+        			range = type;
+        		break;
+        }	
+	}
+	
+    @Override
+    public Packet getDescriptionPacket() {
+        NBTTagCompound nbtTag = new NBTTagCompound();
+        this.writeToNBT(nbtTag);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
+        readFromNBT(packet.func_148857_g());
     }
 }

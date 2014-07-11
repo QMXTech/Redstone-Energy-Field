@@ -8,14 +8,14 @@ import java.util.Random;
 
 public class EnergyBlockT1 extends BaseEnergyBlock {
 
-    public EnergyBlockT1(int id, Material material) {
-        super(id, material, Tier.ONE);
+    public EnergyBlockT1() {
+        super(Tier.ONE);
     }
 
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
-        manipulateField(world, References.getRange(), References.invisibleEnergyBlock.blockID, x, y, z, false);
-        notifyArea(world, this.blockID, x, y, z);
+        manipulateField(world, References.getRange(), References.invisibleEnergyBlock, x, y, z, false);
+        notifyArea(world, this, x, y, z);
     }
 
 }

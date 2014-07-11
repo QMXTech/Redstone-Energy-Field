@@ -5,7 +5,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import samrg472.ref.containers.T4Container;
-import samrg472.ref.network.PacketBuilder;
+import samrg472.ref.network.MessageTileEntity;
 import samrg472.ref.network.PacketHandler;
 import samrg472.ref.tileentities.T4TE;
 import samrg472.ref.utils.Vector;
@@ -36,7 +36,7 @@ public class T4Gui extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int param1, int param2) {
-        fontRenderer.drawString("Range: " + tileEntity.getRange(), getCenteredX("Range: "), ySize / 2 + 7, 0xFFFFFF);
+        fontRendererObj.drawString("Range: " + tileEntity.getRange(), getCenteredX("Range: "), ySize / 2 + 7, 0xFFFFFF);
     }
 
     @Override
@@ -45,11 +45,11 @@ public class T4Gui extends GuiContainer {
         switch (button.id) {
             case 1: // minus
                 tileEntity.decreaseRange();
-                player.sendQueue.addToSendQueue(PacketBuilder.buildPacket(PacketHandler.PacketType.TILEENTITY.ordinal(), vec, T4TE.RequestType.DECREASE.ordinal()));
+                PacketHandler.INSTANCE.sendToServer(new MessageTileEntity(T4TE.RequestType.DECREASE.ordinal(), vec));
                 break;
             case 2: // plus
                 tileEntity.increaseRange();
-                player.sendQueue.addToSendQueue(PacketBuilder.buildPacket(PacketHandler.PacketType.TILEENTITY.ordinal(), vec, T4TE.RequestType.INCREASE.ordinal()));
+                PacketHandler.INSTANCE.sendToServer(new MessageTileEntity(T4TE.RequestType.INCREASE.ordinal(), vec));
                 break;
         }
     }
@@ -59,6 +59,6 @@ public class T4Gui extends GuiContainer {
     }
 
     public int getCenteredX(String s, int size) {
-        return (size - fontRenderer.getStringWidth(s)) / 2;
+        return (size - this.fontRendererObj.getStringWidth(s)) / 2;
     }
 }
