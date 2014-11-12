@@ -1,5 +1,5 @@
 ##Redstone Energy Field (for Minecraft 1.7.10)
-=====================
+---------------------
 
 Creates a live redstone energy field for mass powering equipment. Features multiple tiers of energy fields.
 
@@ -10,8 +10,7 @@ Latest Builds: (currently unavailable)
 
 Original Minecraft Forum Post: http://bit.ly/Y5mRan
 
-##Recent Changes:
-=====================
+**Recent Changes:**
 
 2014-11-11 by Korynkai:
 
