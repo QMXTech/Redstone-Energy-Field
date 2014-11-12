@@ -5,8 +5,7 @@ Creates a live redstone energy field for mass powering equipment. Features multi
 (Particle effects and disabling by redstone signal currently broken, so tier 2 & 3 cells are currently useless,
 tier 4 only allows one to select the range)
 
-Latest Builds: (currently unavailable)
-
+>Latest Builds: (currently unavailable)<br>
 Original Minecraft Forum Post: http://bit.ly/Y5mRan
 
 ####Recent Changes:
