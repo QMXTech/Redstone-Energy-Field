@@ -9,7 +9,8 @@ Latest Builds: (currently unavailable)
 
 Original Minecraft Forum Post: http://bit.ly/Y5mRan
 
-**Recent Changes:**
+####Recent Changes:
+
 
 2014-11-11 by Korynkai:
 
