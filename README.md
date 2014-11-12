@@ -7,6 +7,7 @@ Creates a live redstone energy field for mass powering equipment. Features multi
 tier 4 only allows one to select the range)
 
 Latest Builds: (currently unavailable)
+
 Original Minecraft Forum Post: http://bit.ly/Y5mRan
 
 ##Recent Changes:
