@@ -24,8 +24,7 @@ import samrg472.ref.proxies.CommonProxy;
 import samrg472.ref.tileentities.T4TE;
 
 import java.io.File;
-
-@Mod(modid = References.MOD_ID, name = References.MOD_NAME, version = References.VERSION, useMetadata = false)
+@Mod(modid = "RedstoneEnergyField", name = "Redstone Energy Field", version = "@VERSION@", useMetadata = false)
 public class RedstoneEnergyField {
 
     @SidedProxy(clientSide = "samrg472.ref.proxies.ClientProxy", serverSide = "samrg472.ref.proxies.CommonProxy")
@@ -45,6 +44,7 @@ public class RedstoneEnergyField {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        instance = this;
         File suggestedConfiguration = event.getSuggestedConfigurationFile();
 
         configDir = suggestedConfiguration.getParentFile();

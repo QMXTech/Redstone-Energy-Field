@@ -1,0 +1,21 @@
+[
+{
+  "modid": "REF",
+  "name": "Redstone Energy Field",
+  "description": "Adds a redstone energy field block",
+  "version": "45d8-QMX",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authors": [
+    "samrg472"
+  ],
+  "credits": "By samrg472",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]
