@@ -1,13 +1,15 @@
 [
 {
-  "modid": "REF",
+  "modid": "RedstoneEnergyField",
   "name": "Redstone Energy Field",
   "description": "Adds a redstone energy field block",
-  "version": "0.5",
-  "mcversion": "1.5.1",
+  "version": "0.8.0-alpha",
+  "mcversion": "1.7.10",
   "url": "",
   "updateUrl": "",
   "authors": [
+    "Korynkai",
+    "TrainerGuy22",
     "samrg472"
   ],
   "credits": "By samrg472",
