@@ -12,7 +12,7 @@ Original Minecraft Forum Post: http://bit.ly/Y5mRan
 ####Recent Changes:
 
 
-2014-11-11 by Korynkai:
+**2014-11-11 by Korynkai:**
 
-- Pulled in ForgeGradle
-- Additional fixes for Minecraft Forge
+* Pulled in ForgeGradle
+* Additional fixes for Minecraft Forge
