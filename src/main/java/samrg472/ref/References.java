@@ -5,7 +5,7 @@ import samrg472.ref.blocks.*;
 
 public class References {
 
-    public static final String VERSION = "45d8-QMX";
+    public static final String VERSION = "0.8.1-alpha";
     public static final String CHANNEL = "REF";
     public static final String MOD_ID = "REF";
     public static final String MOD_NAME = "Redstone Energy Field";
@@ -24,7 +24,7 @@ public class References {
     private boolean particleEffects;
 
     protected References(Configuration config) {
-        range = config.get(Configuration.CATEGORY_GENERAL, "range", 5, "This controls how large the redstone energy field is and must be an odd number (if an even number is received, it will converted to an odd)").getInt();
+        range = config.get(Configuration.CATEGORY_GENERAL, "range", 2, "This controls the distance from an energy block by which a block can be powered for non-tier 4 energy blocks.").getInt();
         maxRange = config.get(Configuration.CATEGORY_GENERAL, "max_range", 11, "Controls the max range that in-game range controlled blocks can go up to").getInt();
         connectEverything = config.get(Configuration.CATEGORY_GENERAL, "connect_everything", false, "Only necessary if you have blocks that can only receive power if directly connected").getBoolean(false);
         particleEffects = config.get(Configuration.CATEGORY_GENERAL, "particle_effects", true, "These particles shows the field the energy field block emits power to\nYou can disable entirely if you have a slower machine").getBoolean(true);

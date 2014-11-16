@@ -28,7 +28,7 @@ import java.util.Random;
 
 public abstract class BaseEnergyBlock extends BlockContainer {
 
-    public Tier tier;
+    public Tier tier; 
 
     public BaseEnergyBlock(Tier tier) {
         this(tier, tier.unlocalizedName);
@@ -61,6 +61,17 @@ public abstract class BaseEnergyBlock extends BlockContainer {
 
     @Override
     public abstract void updateTick(World world, int x, int y, int z, Random rand);
+
+    public void tickParticleEffects(World world, int x, int y, int z)
+    {
+        TileEntity entity = world.getTileEntity(x, y, z);
+        if (References.showParticleEffects() && (!isReceivingPower(world, x, y, z))) {
+            if ((tier == Tier.THREE) && (world.getBlockMetadata(x, y, z) == 1))
+                sparkle(world, x, y, z, References.getRange());
+	    else if ((tier == Tier.FOUR) && (entity != null) && (entity instanceof T4TE) && ((T4TE) entity).getParticle())
+	        sparkle(world, x, y, z, ((T4TE) entity).getRange());
+	}
+    }
 
     @Override
     public TileEntity createNewTileEntity(World world, int meta) {
@@ -124,7 +135,7 @@ public abstract class BaseEnergyBlock extends BlockContainer {
 
     @Override
     public int tickRate(World w) {
-        return 4;
+        return 1;
     }
 
     @Override
@@ -146,12 +157,11 @@ public abstract class BaseEnergyBlock extends BlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
-        if ((world.getBlockMetadata(x, y, z) == 1) && (References.showParticleEffects()))
-            this.sparkle(world, x, y, z);
+        tickParticleEffects(world, x, y, z);
     }
 
     @SideOnly(Side.CLIENT)
-    protected void sparkle(World world, int x, int y, int z) {
+    protected void sparkle(World world, int x, int y, int z, int range) {
         Random rand = world.rand;
         double riser = 0.01D;
 
@@ -161,22 +171,45 @@ public abstract class BaseEnergyBlock extends BlockContainer {
                     y2 = y + rand.nextDouble(),
                     z2 = z + rand.nextDouble();
 
-            if (i == 0 && !world.getBlock(x, y + 1, z).isOpaqueCube()) // top
+            if (i == 0 && !world.getBlock(x, y + 1, z).isOpaqueCube()) // bottom
                 y2 = (y + 1.0D) + riser;
-            if (i == 1 && !world.getBlock(x, y - 1, z).isOpaqueCube()) // bottom
+            if (i == 1 && !world.getBlock(x, y - 1, z).isOpaqueCube()) // top
                 y2 = y - riser;
-            if (i == 2 && !world.getBlock(x, y, z + 1).isOpaqueCube()) // north
+            if (i == 2 && !world.getBlock(x, y, z + 1).isOpaqueCube()) // south
                 z2 = (z + 1.0D) + riser;
-            if (i == 3 && !world.getBlock(x, y, z - 1).isOpaqueCube()) // south
+            if (i == 3 && !world.getBlock(x, y, z - 1).isOpaqueCube()) // north
                 z2 = z - riser;
-            if (i == 4 && !world.getBlock(x + 1, y, z).isOpaqueCube()) // west
+            if (i == 4 && !world.getBlock(x + 1, y, z).isOpaqueCube()) // east
                 x2 = (x + 1.0D) + riser;
-            if (i == 5 && !world.getBlock(x - 1, y, z).isOpaqueCube()) // east
+            if (i == 5 && !world.getBlock(x - 1, y, z).isOpaqueCube()) // west
                 x2 = x - riser;
 
             if (((x2 < (x - 0.3D)) || x2 > (x + 1.3D)) || (y2 < 0.3D || y2 > (y + 1.0D)) || (z2 < (z - 0.3D) || z2 > (z + 1.0D)))
                 world.spawnParticle("reddust", x2, y2, z2, 0.0D, 0.0D, 0.0D);
         }
+
+	for (int i = 0; i <= 5; i++) {
+
+            double x3 = x + rand.nextDouble(),
+                   y3 = y + rand.nextDouble(),
+                   z3 = z + rand.nextDouble();
+
+            if (i == 0 && !world.getBlock(x, y + range, z).isOpaqueCube()) // bottom
+	    	y3 = ((y + range) + 0.5D);
+	    if (i == 1 && !world.getBlock(x, y - range, z).isOpaqueCube()) // top
+	        y3 = (y - range) + 0.41D;
+	    if (i == 2 && !world.getBlock(x, y, z + range).isOpaqueCube()) // south
+	        z3 = ((z + range) + 0.5D);
+	    if (i == 3 && !world.getBlock(x, y, z - range).isOpaqueCube()) // north
+	        z3 = (z - range) +0.41D;
+	    if (i == 4 && !world.getBlock(x + range, y, z).isOpaqueCube()) // east
+	        x3 = ((x + range) + 0.5D);
+	    if (i == 5 && !world.getBlock(x - range, y, z).isOpaqueCube()) // west
+	        x3 = (x - range) + 0.41D;
+
+	    world.spawnParticle("reddust", x3, y3, z3, 0.0D, 0.0D, 0.0D);
+	}
+
     }
 
     protected boolean isReceivingPower(IBlockAccess blockAccess, int x, int y, int z) {
@@ -198,9 +231,6 @@ public abstract class BaseEnergyBlock extends BlockContainer {
      * Args x, y, z is the current position
      */
     protected void manipulateField(World world, int range, Block block, int metadata, int x, int y, int z, boolean breakBlock) {
-        if (range % 2 == 0)
-            range++;
-        range = (range - 1) / 2;
         for (int x2 = x - range; x2 <= x + range; x2++) {
             for (int y2 = y - range; y2 <= y + range; y2++) {
                 for (int z2 = z - range; z2 <= z + range; z2++) {
