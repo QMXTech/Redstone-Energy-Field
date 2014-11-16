@@ -1,6 +1,6 @@
 [
 {
-  "modid": "REF",
+  "modid": "RedstoneEnergyField",
   "name": "Redstone Energy Field",
   "description": "Adds a redstone energy field block",
   "version": "0.8.1-alpha",
