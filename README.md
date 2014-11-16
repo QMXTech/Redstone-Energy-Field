@@ -15,7 +15,7 @@ Original Minecraft Forum Post: http://bit.ly/Y5mRan
 
 >2014-11-15 by Korynkai:
 
-* Some work on particle effects (adds particle effects at set range in cardinal directions (N,S,E,W + top and bottom) (note: an additional block is still powered, as would be the case with redstone dust *This is a feature, not a bug, as it allows one to visualize the redstone signal pathway rather than show which blocks are powered, which can be confusing*)
+* Some work on particle effects, adds particle effects at set range in cardinal directions (N,S,E,W + top and bottom) (note: an additional block is still powered, as would be the case with redstone dust *This is a feature, not a bug, as it allows one to visualize the redstone signal pathway rather than show which blocks are powered, which can be confusing*)
 * Bump version to 0.8.1-alpha
 * Bump Forge to 10.13.2.1230
 * Removed unnecessary references directory (this was moved to the src tree already...)
