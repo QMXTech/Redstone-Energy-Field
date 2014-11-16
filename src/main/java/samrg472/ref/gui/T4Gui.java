@@ -25,8 +25,9 @@ public class T4Gui extends GuiContainer {
     @SuppressWarnings("unchecked")
     public void initGui() {
         super.initGui();
-        buttonList.add(new GuiButton(1, getCenteredX("-", width) - 40, height / 2, 20, 20, "-"));
-        buttonList.add(new GuiButton(2, (getCenteredX("+", width)) + 35, height / 2, 20, 20, "+"));
+        buttonList.add(new GuiButton(1, getCenteredX("-", width) - 40, (height / 2) - 22, 20, 20, "-"));
+        buttonList.add(new GuiButton(2, (getCenteredX("+", width)) + 35, (height / 2) - 22, 20, 20, "+"));
+	buttonList.add(new GuiButton(3, getCenteredX("-", width) + 40, (height / 2) + 2, 24, 20, booleanToYesNo(tileEntity.getParticle())));
     }
 
     @Override
@@ -36,7 +37,8 @@ public class T4Gui extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int param1, int param2) {
-        fontRendererObj.drawString("Range: " + tileEntity.getRange(), getCenteredX("Range: "), ySize / 2 + 7, 0xFFFFFF);
+        fontRendererObj.drawString("Range: " + tileEntity.getRange(), getCenteredX("Range: "), ySize / 2 - 14, 0xFFFFFF); // TODO: Localize
+	fontRendererObj.drawString("Particle Effects: ", getCenteredX("Particle Effects: ") - 6, ySize / 2 + 10, 0xFFFFFF); // TODO: Localize
     }
 
     @Override
@@ -51,6 +53,11 @@ public class T4Gui extends GuiContainer {
                 tileEntity.increaseRange();
                 PacketHandler.INSTANCE.sendToServer(new MessageTileEntity(T4TE.RequestType.INCREASE.ordinal(), vec));
                 break;
+	    case 3: // Toggle particle effects
+	        tileEntity.toggleParticle();
+		PacketHandler.INSTANCE.sendToServer(new MessageTileEntity(T4TE.RequestType.SETPARTICLE.ordinal(), vec));
+		button.displayString = (booleanToYesNo(tileEntity.getParticle()));
+		break;
         }
     }
 
@@ -60,5 +67,8 @@ public class T4Gui extends GuiContainer {
 
     public int getCenteredX(String s, int size) {
         return (size - this.fontRendererObj.getStringWidth(s)) / 2;
+    }
+    public String booleanToYesNo(boolean b) {
+        return ( b ? "Yes" : "No" );
     }
 }

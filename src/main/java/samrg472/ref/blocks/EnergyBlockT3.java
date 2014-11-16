@@ -21,6 +21,7 @@ public class EnergyBlockT3 extends BaseEnergyBlock {
         } else if (metadata == 1) {
             manipulateField(world, References.getRange(), References.invisibleEnergyBlock, 1, x, y, z, isReceivingPower(world, x, y, z));
         }
+
         notifyArea(world, this, x, y, z);
     }
 

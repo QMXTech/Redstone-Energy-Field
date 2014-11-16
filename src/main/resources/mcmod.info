@@ -3,14 +3,15 @@
   "modid": "REF",
   "name": "Redstone Energy Field",
   "description": "Adds a redstone energy field block",
-  "version": "45d8-QMX",
+  "version": "0.8.1-alpha",
   "mcversion": "1.7.10",
-  "url": "",
+  "url": "https://github.com/QMXTech/Redstone-Energy-Field",
   "updateUrl": "",
   "authors": [
-    "samrg472"
+    "samrg472",
+    "Korynkai"
   ],
-  "credits": "By samrg472",
+  "credits": "Original code by samrg472. New additions and bugfixes by Korynkai (Matt Schultz) of QMXTech.",
   "logoFile": "",
   "screenshots": [
   ],

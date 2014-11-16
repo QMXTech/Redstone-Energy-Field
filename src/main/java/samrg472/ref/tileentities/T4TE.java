@@ -21,6 +21,7 @@ import java.io.IOException;
 public class T4TE extends TileEntity implements ICustomPacketHandler {
 
     private int range;
+    private boolean particle;
 
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
@@ -41,17 +42,19 @@ public class T4TE extends TileEntity implements ICustomPacketHandler {
     public void decreaseRange() {
         setRange(range - 1, true);
     }
+    public void toggleParticle() {
+        particle = (particle ? false : true);
+    }
+
+    public Boolean getParticle() {
+        return particle;
+    }
 
     public int getRange() {
         return range;
     }
 
     public void setRange(int _range, boolean decrease) {
-        if (_range % 2 == 0 && !(_range <= 0))
-            if (decrease)
-                _range--;
-            else
-                _range++;
         if ((_range < 0) || (_range > References.getMaxRange()))
             return;
 
@@ -63,7 +66,8 @@ public class T4TE extends TileEntity implements ICustomPacketHandler {
     public enum RequestType {
         DECREASE,
         INCREASE,
-        SETRANGE
+        SETRANGE,
+	SETPARTICLE
     }
 
 	@Override
@@ -79,6 +83,9 @@ public class T4TE extends TileEntity implements ICustomPacketHandler {
         		if (FMLCommonHandler.instance().getEffectiveSide().isClient())
         			range = type;
         		break;
+		case SETPARTICLE: // Client sent only
+		        toggleParticle();
+			break;
         }	
 	}
 	
