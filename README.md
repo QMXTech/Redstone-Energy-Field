@@ -3,7 +3,8 @@
 Creates a live redstone energy field for mass powering equipment. Features multiple tiers of energy fields.
 
 
->Latest Builds: (currently unavailable)<br>
+>Stable Builds: https://github.com/QMXTech/Redstone-Energy-Field/releases<br>
+Latest Builds: (currently unavailable)<br>
 Original Minecraft Forum Post: http://bit.ly/Y5mRan
 
 ####Known Issues:
