@@ -9,8 +9,7 @@ Original Minecraft Forum Post: http://bit.ly/Y5mRan
 
 ####Known Issues:
 
-* Disabling by redstone signal is currently broken, so tier 2 cells are currently useless, tier 3 only handles particle effects, tier 4 only allows one to select its range and disable/enable particle effects.
-* Particle effects are only shown at cardinal directions at the last block of the range rather than covering the entire range.
+* Disabling by redstone signal is currently broken, so tier 2 cells are useless.
 
 ####Recent Changes:
 
