@@ -14,6 +14,13 @@ Original Minecraft Forum Post: http://bit.ly/Y5mRan
 
 ####Recent Changes:
 
+>2014-11-18 by Malacheye:
+
+* Changed package names to reflect new development team.
+* Modified particle effects to better represent full range.
+* Other various tweaks.
+* Bumped version to 0.8.2-alpha.
+
 >2014-11-15 by Korynkai:
 
 * Some work on particle effects, adds particle effects at set range in cardinal directions (N,S,E,W + top and bottom) (note: an additional block is still powered, as would be the case with redstone dust *This is a feature, not a bug, as it allows one to visualize the redstone signal pathway rather than show which blocks are powered, which can be confusing*)
@@ -25,3 +32,4 @@ Original Minecraft Forum Post: http://bit.ly/Y5mRan
 
 * Pulled in ForgeGradle
 * Additional fixes for Minecraft Forge
+

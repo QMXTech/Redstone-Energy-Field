@@ -24,8 +24,8 @@ file "build.properties" withReader {
 }
 
 version = "${config.minecraft.version}-${config.RedstoneEnergyField.version}"
-group = "samrg472.ref" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "Redstone-Energy-Field"
+group = "com.qmxtech.ref" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "RedstoneEnergyField"
 
 repositories {
 }
@@ -37,7 +37,7 @@ minecraft {
     version = "${config.minecraft.version}-${config.forge.version}"
     assetDir = "eclipse/assets"
 
-    replaceIn "samrg472/ref/RedstoneEnergyField.java"
+    replaceIn "com/qmxtech/ref/RedstoneEnergyField.java"
     replace "@VERSION@", "${config.RedstoneEnergyField.version}"
 }
 processResources
